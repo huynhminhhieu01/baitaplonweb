@@ -1,0 +1,349 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Đăng ký</title>
+
+    <link rel="stylesheet" href="js/bootstrap.css">
+    <script src="js/jquery-3.6.0.min.js"></script>
+    <script type="text/javascript" src="js/bootstrap.js"></script>
+
+
+    <link rel="stylesheet" href="fonts/roboto.css">
+    <link rel="stylesheet" href="fonts/oswald.css">
+    <link rel="stylesheet" href="fonts/dancing.css">
+
+
+    <link rel="stylesheet" href="js/font-awesome.css">
+    <link rel="stylesheet" href="css/style.css">
+    <script src="data.js"></script>
+
+    <script>
+        $(document).ready(function() {
+            function kiemtrahoten() {
+                let name = $("#name").val()
+                let regexname = /^[AÀẢÃÁẠĂẰẲẴẮẶÂẦẨẪẤẬBCDĐEÈẺẼÉẸÊỀỂỄẾỆFGHIÌỈĨÍỊJKLMNOÒỎÕÓỌÔỒỔỖỐỘƠỜỞỠỚỢPQRSTUÙỦŨÚỤƯỪỬỮỨỰVWXYỲỶỸÝỴZ][aàảãáạăằẳẵắặâầẩẫấậbcdđeèẻẽéẹêềểễếệfghiìỉĩíịjklmnoòỏõóọôồổỗốộơờởỡớợpqrstuùủũúụưừửữứựvwxyỳỷỹýỵz]+ [AÀẢÃÁẠĂẰẲẴẮẶÂẦẨẪẤẬBCDĐEÈẺẼÉẸÊỀỂỄẾỆFGHIÌỈĨÍỊJKLMNOÒỎÕÓỌÔỒỔỖỐỘƠỜỞỠỚỢPQRSTUÙỦŨÚỤƯỪỬỮỨỰVWXYỲỶỸÝỴZ][aàảãáạăằẳẵắặâầẩẫấậbcdđeèẻẽéẹêềểễếệfghiìỉĩíịjklmnoòỏõóọôồổỗốộơờởỡớợpqrstuùủũúụưừửữứựvwxyỳỷỹýỵz]+(?: [AÀẢÃÁẠĂẰẲẴẮẶÂẦẨẪẤẬBCDĐEÈẺẼÉẸÊỀỂỄẾỆFGHIÌỈĨÍỊJKLMNOÒỎÕÓỌÔỒỔỖỐỘƠỜỞỠỚỢPQRSTUÙỦŨÚỤƯỪỬỮỨỰVWXYỲỶỸÝỴZ][aàảãáạăằẳẵắặâầẩẫấậbcdđeèẻẽéẹêềểễếệfghiìỉĩíịjklmnoòỏõóọôồổỗốộơờởỡớợpqrstuùủũúụưừửữứựvwxyỳỷỹýỵz]*)*$/;
+
+                if (name.trim() == '') {
+                    $("#errorname").html("Bắt buộc nhập")
+                    return false
+                }
+                if (!regexname.test(name)) {
+                    $("#errorname").html("Chữ cái đầu mỗi từ phải viết hoa")
+                    return false
+                }
+
+                $("#errorname").html("")
+                return true
+            }
+            $("#name").blur(kiemtrahoten)
+
+
+            function kiemtraemail() {
+                let email = $("#email").val()
+                let regexemail = /^([a-zA-Z0-9_\.\-])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/
+                if (email.trim() == '') {
+                    $("#erroremail").html("Bắt buộc nhập")
+                    return false
+                }
+                if (!regexemail.test(email)) {
+                    $("#erroremail").html("Email không đúng định dạng")
+                    return false
+                }
+
+                $("#erroremail").html("")
+                return true
+            }
+            $("#email").blur(kiemtraemail)
+
+            function kiemtrangay() {
+                let ngayhethong = new Date()
+                let ngaysinh = new Date($("#birthday").val())
+
+                if ($("#birthday").val() == '') {
+                    $("#errorbirthday").html("Ngày sinh không được để trống")
+                    return false
+                }
+
+                if (ngaysinh.getFullYear() > ngayhethong.getFullYear() - 18) {
+                    $("#errorbirthday").html("Phải đủ 18 tuổi trở lên")
+                    return false
+                }
+
+                $("#errorbirthday").html("")
+                return true
+
+
+            }
+
+            $("#birthday").blur(kiemtrangay)
+
+            function Kiemtratendangnhap() {
+                let username = $("#username").val()
+                let regexusername = /^([a-zA-Z0-9]){6,18}$/
+
+                if (username.trim() == '') {
+                    $("#errorusername").html("Bắt buộc nhập")
+                    return false
+                }
+                if (!regexusername.test(username)) {
+                    $("#errorusername").html("Tên tài khoản ít nhất 6 kí tự và tối đa 18 kí tự bao gồm chữ và số")
+                    return false
+                }
+
+                $("#errorusername").html("")
+                return true
+            }
+
+            $("#username").blur(Kiemtratendangnhap)
+
+
+            function kiemtramatkhau() {
+                let password = $("#password").val()
+                let regexpassword = /^([a-zA-Z0-9_\.\-]){6,18}$/
+                if (password.trim() == '') {
+                    $("#errorpassword").html("Bắt buộc nhập")
+                    return false
+                }
+                if (!regexpassword.test(password)) {
+                    $("#errorpassword").html("Mật khẩu ít nhất 6 kí tự và tối đa 18 kí tự bao gồm chữ số và kí tự đặt biệt")
+                    return false
+                }
+
+                $("#errorpassword").html("")
+                return true
+            }
+
+            $("#password").blur(kiemtramatkhau)
+
+            function kiemtranhaplaimatkhau() {
+                let password = $("#password").val()
+                let con_password = $("#con_password").val()
+                if (password != con_password) {
+                    $("#errorcon_password").html("Mật khẩu nhập lại không chính xác")
+                    return false
+                }
+                if (con_password.trim() == "") {
+                    $("#errorcon_password").html("Bắt buộc nhập")
+                    return false
+                }
+                $("#errorcon_password").html("")
+                return true
+            }
+            $("#con_password").blur(kiemtranhaplaimatkhau)
+
+            function Kiemtradiachi() {
+                let diachi = $("#address").val()
+                let regexdiachi = /^[0-9-/AÀẢÃÁẠĂẰẲẴẮẶÂẦẨẪẤẬBCDĐEÈẺẼÉẸÊỀỂỄẾỆFGHIÌỈĨÍỊJKLMNOÒỎÕÓỌÔỒỔỖỐỘƠỜỞỠỚỢPQRSTUÙỦŨÚỤƯỪỬỮỨỰVWXYỲỶỸÝỴZ][0-9-/aàảãáạăằẳẵắặâầẩẫấậbcdđeèẻẽéẹêềểễếệfghiìỉĩíịjklmnoòỏõóọôồổỗốộơờởỡớợpqrstuùủũúụưừửữứựvwxyỳỷỹýỵz]+ [AÀẢÃÁẠĂẰẲẴẮẶÂẦẨẪẤẬBCDĐEÈẺẼÉẸÊỀỂỄẾỆFGHIÌỈĨÍỊJKLMNOÒỎÕÓỌÔỒỔỖỐỘƠỜỞỠỚỢPQRSTUÙỦŨÚỤƯỪỬỮỨỰVWXYỲỶỸÝỴZ][aàảãáạăằẳẵắặâầẩẫấậbcdđeèẻẽéẹêềểễếệfghiìỉĩíịjklmnoòỏõóọôồổỗốộơờởỡớợpqrstuùủũúụưừửữứựvwxyỳỷỹýỵz]+(?: [AÀẢÃÁẠĂẰẲẴẮẶÂẦẨẪẤẬBCDĐEÈẺẼÉẸÊỀỂỄẾỆFGHIÌỈĨÍỊJKLMNOÒỎÕÓỌÔỒỔỖỐỘƠỜỞỠỚỢPQRSTUÙỦŨÚỤƯỪỬỮỨỰVWXYỲỶỸÝỴZ][aàảãáạăằẳẵắặâầẩẫấậbcdđeèẻẽéẹêềểễếệfghiìỉĩíịjklmnoòỏõóọôồổỗốộơờởỡớợpqrstuùủũúụưừửữứựvwxyỳỷỹýỵz]*)*$/;
+                if (diachi.trim() == "") {
+                    $("#erroraddress").html(" Bắt buộc nhập")
+                    return false
+                }
+                if (!regexdiachi.test(diachi)) {
+                    $("#erroraddress").html("Địa chỉ không hợp lệ")
+                    return false
+                }
+
+                $("#erroraddress").html("")
+                return true
+
+            }
+            $("#address").blur(Kiemtradiachi)
+
+            function kiemtrasodienthoai() {
+                let telephone = $("#tel").val()
+                let regextelephone = /^[0][0-9]{9}$/
+
+                if (telephone.trim() == "") {
+                    $("#errortel").html(" Bắt buộc nhập")
+                    return false
+                }
+                if (!regextelephone.test(telephone)) {
+                    $("#errortel").html("Số điện thoại gồm 10 số và bắt đầu bằng 0")
+                    return false
+                }
+
+                $("#errortel").html("")
+                return true
+
+            }
+            $("#tel").blur(kiemtrasodienthoai)
+
+
+            $("#dangkytaikhoan").click(function() {
+                if (!kiemtrahoten() || !kiemtraemail() || !kiemtrangay() || !Kiemtratendangnhap() || !kiemtramatkhau() || !kiemtranhaplaimatkhau() || !Kiemtradiachi() || !kiemtrasodienthoai()) {
+                    $("#errordangky").html("Nhập đầy đủ và chính xác thông tin")
+                    return false
+                }
+
+
+
+
+                Luutrutaikhoanvaolocal(dsstk)
+                alert("Đăng ký thành công")
+                alert("Trở về trang chủ và đăng nhập!")
+                window.location = "index.html"
+
+                $("#errordangky").html("")
+                demso = demso + 1;
+
+                return true
+
+            })
+
+            let dem = 0;
+
+            function Luutrutaikhoanvaolocal(danhsachtaikhoandangky) {
+                let name = $("#name").val()
+                let email = $("#email").val()
+                let ngaysinh = new Date($("#birthday").val())
+                let username = $("#username").val()
+                let password = $("#password").val()
+                let diachi = $("#address").val()
+                let tel = $("#tel").val()
+
+                let taikhoan = {
+                    id: dem,
+                    name: name,
+                    email: email,
+                    birthday: ngaysinh,
+                    username: username,
+                    password: password,
+                    address: diachi,
+                    telephone: tel
+                }
+
+
+                danhsachtaikhoandangky[dem] = taikhoan;
+
+                dem = dem + 1;
+                localStorage.setItem("dsstk", JSON.stringify(danhsachtaikhoandangky))
+
+            }
+
+
+        })
+    </script>
+
+    <style>
+        .row {
+            display: flex;
+        }
+        
+        .khung {
+            padding-bottom: 100px;
+            border: solid rgba(255, 165, 1, 255) 1px;
+            border-radius: 100px;
+            padding-left: 30px;
+            background-color: aliceblue;
+        }
+        
+        h2 {
+            text-align: center;
+        }
+    </style>
+
+</head>
+
+<body>
+    <div class="container col-sm-6 p-2 khungngoai">
+        <div class="panel panel-primary p-4 khung">
+            <div class="panel-heading">
+                <h2 class="text-center fontdancing tieude1 font-weight-bold p-2 ">Đăng ký tài khoản </h2>
+            </div>
+            <div class="panel-body ">
+                <div class="col-sm-12 row">
+                    <div class="form-group col-sm-6">
+                        <label class="font-weight-bold " for="name">Họ và tên:</label>
+                        <input required="true" type="text" class="form-control" id="name" value="">
+                        <span class="text-danger" id="errorname"></span>
+                    </div>
+                    <div class="form-group col-sm-6">
+                        <label class="font-weight-bold " for="birthday">Ngày sinh:</label>
+                        <input type="date" class="form-control" id="birthday" value="">
+                        <span class="text-danger" id="errorbirthday"></span>
+                    </div>
+
+                </div>
+
+                <div class="col-md-12 row">
+                    <div class="form-group col-sm-6 ">
+                        <label class="font-weight-bold " for="email">Email:</label>
+                        <input required="true" type="email" class="form-control" id="email" value="">
+                        <span class="text-danger" id="erroremail"></span>
+                    </div>
+                    <div class="form-group col-sm-6">
+                        <label class="font-weight-bold " for="tel">Số điện thoại:</label>
+                        <input type="text" class="form-control" id="tel" value="">
+                        <span class="text-danger" id="errortel"></span>
+                    </div>
+
+                </div>
+
+                <div class="col-md-12 row">
+                    <div class="form-group col-sm-6">
+                        <label class="font-weight-bold " for="username">Tên tài khoản:</label>
+                        <input type="text" class="form-control" id="username" value="">
+                        <span class="text-danger" id="errorusername"></span>
+                    </div>
+                    <div class="form-group col-sm-6">
+                        <label class="font-weight-bold " for="address">Địa chỉ:</label>
+                        <input type="text" class="form-control" id="address" value="">
+                        <span class="text-danger" id="erroraddress"></span>
+                    </div>
+                </div>
+
+                <div class="col-sm-12 row">
+                    <div class="form-group col-sm-6">
+                        <label class="font-weight-bold " for="password">Mật khẩu:</label>
+                        <input required="true" type="text" class="form-control" id="password" value="">
+                        <span class="text-danger" id="errorpassword"></span>
+                    </div>
+                    <div class="form-group col-sm-6">
+                        <label class="font-weight-bold " for="con_password">Nhập lại mật khẩu:</label>
+                        <input required="true" type="text" class="form-control" id="con_password" value="">
+                        <span class="text-danger" id="errorcon_password"></span>
+                    </div>
+                </div>
+
+                <div class="col-sm-12 row">
+                    <div class="form-group col-sm-6">
+                        <label class="font-weight-bold " for="gen" style="margin-bottom: 15px;">Giới tính:</label> <br>
+                        <label class=" " for="">Nam</label>
+                        <input type="radio" name="gioitinh" id="" checked>
+                        <label class="" for="">Nữ</label>
+                        <input type="radio" name="gioitinh" id="">
+                    </div>
+                </div>
+
+
+                <div class="col-sm-12 row">
+                    <button type="submit" class="formgroup col-sm-12 " style="background-color: rgba(255,165,1,255); border-radius: 5px; padding: 7px;" id="dangkytaikhoan">ĐĂNG
+            KÝ</button>
+                    <br><span id="errordangky" class="text-danger "></span>
+                </div>
+                <div class="col-sm-12 row">
+                    <div class="p-2">
+                        <a href="#" id="dangnhaptaikhoan"> Đăng nhập ngay</a>
+                    </div>
+                    <div class="p-2" style="margin-left:350px ;">
+                        <a href="index.html"> Trang chủ</a>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <div class="modal" id="myModal">
+
+
+    </div>
+
+
+</body>
+
+</html>
